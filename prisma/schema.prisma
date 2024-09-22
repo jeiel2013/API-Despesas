@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Despesa {
+  id_despesa           Int              @id @default(autoincrement())
+  descricao            String
+  valor                Float
+  data                 DateTime
+  forma_pagamento      String
+  status               String
+  id_categoria_despesa Int
+  categoriaDespesa     CategoriaDespesa @relation(fields: [id_categoria_despesa], references: [id_categoria_despesa])
+}
+
+model CategoriaDespesa {
+  id_categoria_despesa Int       @id @default(autoincrement())
+  nome                 String
+  descricao            String?
+  despesas_associadas  Despesa[] // Relacionamento 1-N com Despesa  
+}
