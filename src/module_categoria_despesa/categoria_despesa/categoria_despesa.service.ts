@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/PrismaService';
 import { CategoriaDespesaDTO } from './categoria_despesa.dto';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 @Injectable()
 export class CategoriaDespesaService {
@@ -18,11 +19,26 @@ export class CategoriaDespesaService {
     }
 
     async findDespesasByCategoria(id_categoria_despesa: number) {
+        if (!id_categoria_despesa) {
+            throw new HttpException({
+                status: HttpStatus.BAD_REQUEST,
+                error: 'Categoria inválida: o campo id_categoria_despesa é obrigatório',
+            }, HttpStatus.BAD_REQUEST);
+        }
+
         const despesas = await this.prisma.despesa.findMany({
             where: {
                 id_categoria_despesa: id_categoria_despesa,
             },
         });
+
+        if (despesas.length === 0) {
+            throw new HttpException({
+                status: HttpStatus.BAD_REQUEST,
+                error: 'Nenhuma despesa encontrada para esta categoria',
+            }, HttpStatus.BAD_REQUEST);
+        } 
+
         return despesas;
     }    
 

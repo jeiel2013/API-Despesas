@@ -17,7 +17,7 @@ export class CategoriaDespesaController {
   }
 
   @Get(':id_categoria_despesa')
-  async find(@Param('id_categoria_despesa', ParseIntPipe) id_categoria_despesa: number) {
+  async findDespesasByCategoria(@Param('id_categoria_despesa', ParseIntPipe) id_categoria_despesa: number) {
     return this.categoriaDespesaService.findDespesasByCategoria(id_categoria_despesa)
   }
 
