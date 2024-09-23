@@ -12,7 +12,6 @@ Este projeto foi desenvolvido por **Jeiel Jedson Leão Alves**, aluno do curso d
 7. [Instruções da API](#instruções-da-api)
 8. [Testes](#testes)
 9. [Contribuições](#contribuições)
-10. [Licença](#licença)
 
 ## Descrição
 
